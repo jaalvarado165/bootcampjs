@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="styles.css">
+
+    
+
+</head>
+
+<body>
+
+
+<div class="form">
+    
+    <form action="">
+
+    <h2>Formulario de contacto</h2><br>
+
+    <!--Nombre-->
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required minlength="2" maxlength="50">
+    <div id="error-nombre" class="error-msg"></div>
+
+
+    <!--Correo Electronico-->
+    <label for="correo">Correo electrónico:</label>
+    <input type="email" id="correo" name="email" required>
+    <div id="error-correo" class="error-msg"></div>
+
+    <!--Mensaje-->
+   
+    <label for="mensaje">Mensaje:</label>
+    <textarea id="mensaje" name="mensaje" rows="5" cols="40" required></textarea>
+
+    <!--Mensaje error nombre-->
+
+    <div id="error-mensaje" class="error-msg"></div>
+
+    <!--Mensaje error correo-->
+
+    <div id="resultado" class="resultado-final"></div>
+
+    <!--Boton Enviar-->
+    <button id="boton">Enviar</button>
+
+    <!--Ventana emergente correctamente-->
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+          <span id="cerrar-modal" class="cerrar">&times;</span>
+          <p>LOS DATOS FUERON ENVIADOS CORRECTAMENTE.</p>
+        </div>
+      </div>
+
+
+
+</form>
+
+
+</div>
+
+
+<script src="script.js"></script>
+
+
+</body>
+
+
+</html>

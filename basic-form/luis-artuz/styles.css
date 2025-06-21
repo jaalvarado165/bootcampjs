@@ -1,0 +1,133 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(182, 182, 182);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  
+    
+  }
+
+  .form {
+  background-color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+   
+}
+
+h2{
+  margin: 10px 40px;
+}
+
+#nombre, #correo, #mensaje {
+  width: 100%;
+  padding: 10px;
+  margin: 12px 0px 0px 0px ;
+  border-radius: 10px;
+}
+
+
+
+label {
+  display: block;
+  margin: 10px 0px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: gray;
+}
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 14px;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  resize: none;
+}
+
+#boton {
+  
+  width: 50%;
+  padding: 12px;
+  margin:10px 80px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  }
+
+  #boton:hover {
+  background-color: #0056b3;
+  }
+
+  .error-msg {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  
+.resultado-final {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: green;
+    white-space: pre-wrap;
+  }
+
+  .modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Fondo negro con opacidad */
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+  }
+  
+  .cerrar {
+    color: #aaa;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .cerrar:hover {
+    color: black;
+  }
+
+  @media (max-width: 400px) {
+    .form {
+      padding: 20px;
+    }
+  }
