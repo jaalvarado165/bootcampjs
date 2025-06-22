@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulario de Contacto</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .form-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form id="contactForm">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required maxlength="50"/>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required maxlength="50"/>
+
+      <label for="mensaje">Mensaje:</label>
+      <textarea id="mensaje" name="mensaje" required maxlength="300"></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('contactForm');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      if (form.checkValidity()) {
+        const nombre = document.getElementById('nombre').value.toUpperCase();
+        const email = document.getElementById('email').value.toUpperCase();
+        const mensaje = document.getElementById('mensaje').value.toUpperCase();
+
+        alert(`Los datos enviados son correctos:\nNOMBRE: ${nombre}\nEMAIL: ${email}\nMENSAJE: ${mensaje}`);
+        form.reset(); // Opcional: limpia el formulario tras el envío
+      }
+    });
+  </script>
+</body>
+</html>
