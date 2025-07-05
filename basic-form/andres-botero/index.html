@@ -12,28 +12,38 @@
 
     <div class="container">
         <div class="form-content">
+            <div id="alerta" class="alerta ocultar"></div>
             <h1 id="title">Formulario</h1>
             <form id="formulario" novalidate>
                 <div class="input-group">
+                    <div class="input-field">        
+                        <i class="fa-solid fa-list"></i>
+                        <select id="tipo" name="tipo" required>
+                            <option value="" disabled selected>Seleccione una opción</option>         
+                        </select>              
+                    </div>
                     <div class="input-field">        
                         <i class="fa-solid fa-user"></i>
                         <label for="nombre">Nombre:</label>
                         <input type="text" id="nombre" name="nombre" required maxlength="50">                       
                     </div>
                     <span class="error" id="error-nombre"></span>
+
                     <div class="input-field">
                         <i class="fa-solid fa-envelope"></i>
                         <label for="correo">Correo:</label>
                         <input type="email" id="correo" name="correo" required>
                     </div>
                     <span class="error" id="error-correo"></span>
+
                     <div class="input-field">
                         <i class="fa-solid fa-comment"></i>
                         <label for="comentario">Mensaje:</label>
                         <textarea id="comentario" name="comentario" required maxlength="200"></textarea>
                     </div>
                     <span class="error" id="error-mensaje"></span>
-                </div>
+                </div>                
+
                 <div class="btn-field">
                     <button type="submit">Enviar</button>
                 </div>

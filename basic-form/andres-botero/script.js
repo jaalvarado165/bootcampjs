@@ -1,37 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector("form");
-    const button = document.querySelector("button");
-
-    button.addEventListener("click", function () {
-        const nombre = form.elements["nombre"].value.trim();
-        const correo = form.elements["correo"].value.trim();
-        const comentario = form.elements["comentario"].value.trim();
-
-        // Validación HTML5
-        if (nombre && correo && comentario && form.checkValidity()) {
-            alert(`Los datos enviados son correctos:\n\nNOMBRE: ${nombre.toUpperCase()}\nCORREO: ${correo.toUpperCase()}\nCOMENTARIO: ${comentario.toUpperCase()}`);
-        } else {
-            alert("Por favor completa todos los campos correctamente.");
-        }
-    });
-});
 
 document.getElementById("formulario").addEventListener("submit", function(e) {
-    e.preventDefault(); // evita el envío del formulario
+    e.preventDefault();
 
-    // Limpia 
     document.getElementById("error-nombre").textContent = "";
     document.getElementById("error-correo").textContent = "";
     document.getElementById("error-mensaje").textContent = "";
 
-    // Captura valores
     const nombre = document.getElementById("nombre").value.trim();
     const correo = document.getElementById("correo").value.trim();
     const mensaje = document.getElementById("comentario").value.trim();
 
     let valido = true;
 
-    // Validaciones
     if (nombre.length < 2) {
         document.getElementById("error-nombre").textContent = "El nombre debe tener al menos 2 caracteres.";
         valido = false;
@@ -48,9 +29,67 @@ document.getElementById("formulario").addEventListener("submit", function(e) {
         valido = false;
     }
 
-    // alerta
     if (valido) {
-        alert(`Los datos enviados son correctos:\n\nNOMBRE: ${nombre.toUpperCase()}\nCORREO: ${correo.toUpperCase()}\nMENSAJE: ${mensaje.toUpperCase()}`);
+        // Arreglo de correos existentes
+        const personas = [
+            {nombre: "Julian", email: "jnalvarado.28@gmail.com"},
+            {nombre: "Luis", email: "luis@gmail.com"},
+            {nombre: "Jorge", email: "jorge@gmail.com"},
+            {nombre: "Andres", email: "andres@gmail.com"},
+        ];
+
+        const personaEncontrada = personas.find(
+            (persona) => persona.email.toLowerCase() === correo.toLowerCase()
+        );
+
+        if (personaEncontrada) {
+            mostrarAlerta(`Bienvenido ${personaEncontrada.nombre}`, "exito");
+        } else {
+            mostrarAlerta("Correo no registrado", "error");
+        }
+
         this.reset();
     }
 });
+
+    //MENU DE OPCIONES
+    const opciones = [
+        {value: 1, text: "Peticiones"},
+        {value: 2, text: "Quejas"},
+        {value: 3, text: "Reclamos"},
+        {value: 4, text: "Suguerencias"},
+    ];
+
+    //Insercion menu de opciones
+    const selectTipo = document.getElementById("tipo")
+
+    opciones.forEach(opcion => {
+        const option = document.createElement("option");
+        option.value = option.value;
+        option.textContent = opcion.text;
+        selectTipo.appendChild(option);
+    });
+
+
+    //Alerta
+    function mostrarAlerta(mensaje, tipo) {
+    const alerta = document.getElementById("alerta");
+    alerta.textContent = mensaje;
+
+    alerta.className = "alerta"; // Reset
+    alerta.classList.add("mostrar");
+
+    if (tipo === "exito") {
+        alerta.classList.add("exito");
+    } else {
+        alerta.classList.add("error");
+    }
+
+    setTimeout(() => {
+        alerta.classList.remove("mostrar");
+    }, 3000);
+}
+
+
+});
+
