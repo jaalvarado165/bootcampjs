@@ -37,15 +37,23 @@
         </nav>
     </header>
 
-    <div class="container">
-        <div class="hero-text">
-            <h2>¿Que es la cultura?</h2>
-            <p>La cultura no es solo tradicion, tambien son experiencias</p>
-        </div>
+
+
+<section class="contenedor-todo">
+    <section class="horizontal">
+    <section id="hero">
+                <h1>¿Que es la cultura?</h1>
+                <p>La cultura no es solo tradicion, tambien son experiencias</p>
+    </section>
+    
+
+    <!-- <section class="formu"> -->
         <div class="form-content">
             <div id="alerta" class="alerta ocultar"></div>
             <h1 id="title">Formulario</h1>
             <form id="formulario" novalidate>
+
+                
                 <div class="input-group">
                     <div class="input-field">        
                         <i class="fa-solid fa-list"></i>
@@ -53,12 +61,15 @@
                             <option value="" disabled selected>Seleccione una opción</option>         
                         </select>              
                     </div>
+
+
                     <div class="input-field">        
                         <i class="fa-solid fa-user"></i>
                         <label for="nombre">Nombre:</label>
                         <input type="text" id="nombre" name="nombre" required maxlength="50">                       
                     </div>
                     <span class="error" id="error-nombre"></span>
+
 
                     <div class="input-field">
                         <i class="fa-solid fa-envelope"></i>
@@ -67,26 +78,48 @@
                     </div>
                     <span class="error" id="error-correo"></span>
 
+
                     <div class="input-field">
                         <i class="fa-solid fa-comment"></i>
-                        <label for="comentario">Mensaje:</label>
+                        <label for="comentario">Comentario:</label>
                         <textarea id="comentario" name="comentario" required maxlength="200"></textarea>
                     </div>
                     <span class="error" id="error-mensaje"></span>
                 </div>                
 
+
                 <div class="btn-field">
-                    <button type="submit">Enviar</button>
+                    <button type="submit" id="btnAgregar">Enviar</button>
                 </div>
+
+
             </form>
         </div>
-    </div>
+    <!-- </section> -->
+    </section>
+    </section>
 
-    <script src="script.js"></script>
-    
-</body>
+
+    <section id="lista">
+            <div class="listado">
+                <h2>Listado de datos</h2>
+                <div class="datos">
+
+                </div>
+            </div>
+    </section>
+
+
     <footer>
         <p>&copy; 2025 cultura. Todos los derechos reservados.</p>
     </footer>
+
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
 
 </html>
