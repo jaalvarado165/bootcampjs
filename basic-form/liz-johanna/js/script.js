@@ -1,5 +1,7 @@
 
+
 const opciones = [
+    { value:"", text:"Seleccione una opcion" },
     { value: 1, text: "Peticiones" },
     { value: 2, text: "Quejas" },
     { value: 3, text: "Reclamos" },
@@ -51,14 +53,29 @@ const opciones = [
   }
   
   
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); 
+  function validarFormulario(e) {
+    e.preventDefault();
     const correoIngresado = emailInput.value.trim();
-    const existe = personas.some(persona => persona.email === correoIngresado);
-  
-    if (existe) {
-      mostrarAlerta("El correo está registrado.", "#90ee90"); 
-    } else {
-      mostrarAlerta(" El correo no está registrado.", "#f08080"); 
+    const selectValue = selectElement.value;
+    if (selectValue === "") {
+      mostrarAlerta("Por favor seleccione un tipo de solicitud.", "#f08080");
+      return;
     }
-  });
+    if (correoIngresado === "") {
+      mostrarAlerta("El campo de correo es obligatorio.", "#f08080");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(correoIngresado)) {
+      mostrarAlerta("Por favor ingrese un correo válido.", "#f08080");
+      return;
+    }
+    const existe = personas.some(persona => persona.email === correoIngresado);
+    if (existe) {
+      mostrarAlerta("El correo está registrado.", "#90ee90");
+    } else {
+      mostrarAlerta("El correo no está registrado.", "#f08080");
+    }
+  }
+  
+  form.addEventListener("submit", validarFormulario);
