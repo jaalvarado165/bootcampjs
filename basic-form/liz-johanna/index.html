@@ -2,42 +2,63 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulario</title>
+  <title>Página de inicio</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <h2 class="logo">Bienvenidos a mi página</h2>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Servicios</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <section>
+    <div class="container">
+      <div class="form-content">
+        <h1 id="title">Formulario</h1>
 
-  <div class="container">
-    <div class="form-content">
-      <h1 id="title">Formulario</h1>
-
-      <form>
-        <div class="input-group">
-          <i class="fa-solid fa-list"></i>
-          <div class="custom-select-wrapper">
+        <form>
+          <div class="input-group">
             <select class="custom-select" required>
               <option value="" disabled selected>Seleccione una opción</option>
+              <option value="peticiones">Peticiones</option>
+              <option value="quejas">Quejas</option>
+              <option value="reclamos">Reclamos</option>
+              <option value="sugerencias">Sugerencias</option>
             </select>
           </div>
-        </div>
 
-        <div class="input-group">
-          <i class="fa-solid fa-user"></i>
-          <input type="text" placeholder="Nombre" required>
-        </div>
+          <div class="input-group">
+            <input type="text" placeholder="Nombre" required>
+          </div>
 
-        <div class="input-group">
-          <i class="fa-solid fa-envelope"></i>
-          <input type="email" placeholder="Correo" required>
-        </div>
+          <div class="input-group">
+            <input type="email" placeholder="Correo" required>
+          </div>
 
-        <button type="submit" class="btn">Enviar</button>
-      </form>
+          <button type="submit" class="btn">Enviar</button>
+        </form>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Mi Página. Todos los derechos son reservados.</p>
+    </div>
+  </footer>
 
   <script src="js/script.js"></script>
 </body>
