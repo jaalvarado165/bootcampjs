@@ -3,7 +3,6 @@ const cors = require("cors");
 const config = require("./config");
 const db = require("./db"); 
 
-
 const app = express();
 
 // Middleware para aceptar JSON
@@ -13,15 +12,14 @@ app.use(cors());
 // Configuración del puerto
 app.set("port", config.app.port);
 
-
 // Importar rutas 
 const messagesRoutes = require("./routes/messages");
+const personsRoutes = require("./routes/person"); 
 const usersRoutes = require("./routes/users"); 
 
-
-//uso rutas
+// Uso de rutas
 app.use("/messages", messagesRoutes); 
+app.use("/persons", personsRoutes); 
 app.use("/users", usersRoutes); 
-
 
 module.exports = app;

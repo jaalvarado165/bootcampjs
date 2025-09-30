@@ -1,385 +1,321 @@
-// document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
+  const API_BASE = "http://localhost:5000"; 
 
-// let listaClientes =[];
+  // Estado
+  let editando = false;
+  let currentMessageId = null; 
+  let currentPersonId = null;    
 
-// const objClientes = {
-//     id:"",
-//     opcion:"",
-//     nombre:"",
-//     correo:"",
-//     comentario:""
-// }
+  // Form + inputs
+  const formulario = document.querySelector("#formulario");
+  const nombreInput = document.querySelector("#nombre");
+  const correoInput = document.querySelector("#correo");
+  const comentarioInput = document.querySelector("#comentario");
+  const selecTipo = document.getElementById("tipo");
 
-// let editando = false;
+  // opciones del select
+  const opciones = [
+    { value: "Peticiones", text: "Peticiones" },
+    { value: "Quejas", text: "Quejas" },
+    { value: "Reclamos", text: "Reclamos" },
+    { value: "Sugerencias", text: "Sugerencias" }, 
+  ];
+  opciones.forEach(op => {
+    const option = document.createElement("option");
+    option.value = op.value;
+    option.textContent = op.text;
+    selecTipo.appendChild(option);
+  });
 
-// const formulario = document.querySelector("#formulario");
-// const nombreInput = document.querySelector("#nombre");
-// const correoInput = document.querySelector("#correo");
-// const comentarioInput = document.querySelector("#comentario");
-// const btnAgregar = document.querySelector("#btnAgregar");
-// const selecTipo = document.getElementById("tipo");
+  function limpiarHTML() {
+    const datos = document.querySelector(".datos");
+    while (datos.firstChild) datos.removeChild(datos.firstChild);
+  }
 
+  function mostrarAlerta(mensaje, tipo) {
+    const alerta = document.getElementById("alerta");
+    alerta.textContent = mensaje;
+    alerta.className = "alerta";
+    alerta.classList.add("mostrar");
+    alerta.classList.add(tipo === "exito" ? "exito" : "error");
+    setTimeout(() => alerta.classList.remove("mostrar"), 5000);
+  }
 
-// document.getElementById("formulario").addEventListener("submit", function(e) {
-//     e.preventDefault();
+  // listado desde API 
+  async function cargarListado() {
+    try {
+      const resp = await fetch(`${API_BASE}/messages`);
+      const json = await resp.json();
+      if (json.status !== 200) throw new Error(json.message || "Error");
+      renderTabla(json.data);
+    } catch (e) {
+      console.error(e);
+      mostrarAlerta("Error cargando listado", "error");
+    }
+  }
 
-//     document.getElementById("error-nombre").textContent = "";
-//     document.getElementById("error-correo").textContent = "";
-//     document.getElementById("error-mensaje").textContent = "";
+  function renderTabla(items) {
+    limpiarHTML();
+    const datos = document.querySelector(".datos");
 
-//     const nombre = document.getElementById("nombre").value.trim();
-//     const correo = document.getElementById("correo").value.trim();
-//     const mensaje = document.getElementById("comentario").value.trim();
+    const tabla = document.createElement("table");
+    tabla.classList.add("tabla-clientes");
 
-//     let valido = true;
+    const thead = document.createElement("thead");
+    thead.innerHTML = `
+      <tr>
+        <th>ID</th>
+        <th>Tipo</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Comentario</th>
+        <th>Acciones</th>
+      </tr>`;
+    tabla.appendChild(thead);
 
-//     if (nombre.length < 2) {
-//         document.getElementById("error-nombre").textContent = "El nombre debe tener al menos 2 caracteres.";
-//         valido = false;
-//     }
+    const tbody = document.createElement("tbody");
 
-//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//     if (!emailRegex.test(correo)) {
-//         document.getElementById("error-correo").textContent = "Ingrese un correo electrónico válido.";
-//         valido = false;
-//     }
+    items.forEach(item => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td data-label="ID">${item.id}</td>
+        <td data-label="Tipo">${item.type}</td>
+        <td data-label="Nombre">${item.person_name}</td>
+        <td data-label="Correo">${item.person_email}</td>
+        <td data-label="Comentario">${item.message}</td>
+        <td data-label="Acciones"></td>
+      `;
 
-//     if (mensaje === "") {
-//         document.getElementById("error-mensaje").textContent = "El mensaje no puede estar vacío.";
-//         valido = false;
-//     }
+      const tdAcciones = tr.querySelector("td[data-label='Acciones']");
 
-//     if (valido) {
-//         // Arreglo de correos existentes
-// const personas = [
-//     {nombre: "Julian", email: "jnalvarado.28@gmail.com"},
-//     {nombre: "Luis", email: "luis@gmail.com"},
-//     {nombre: "Jorge", email: "jorge@gmail.com"},
-//     {nombre: "Andres", email: "andres@gmail.com"},
-//     {nombre: "Camila", email: "camila@gmail.com"},
-//     {nombre: "Valentina", email: "valentina@gmail.com"},
-//     {nombre: "Carlos", email: "carlos@gmail.com"},
-//     {nombre: "Ana", email: "ana@gmail.com"},
-//     {nombre: "María", email: "maria@gmail.com"},
-//     {nombre: "Juan", email: "juan@gmail.com"},
-//     {nombre: "Pedro", email: "pedro@gmail.com"},
-//     {nombre: "Sofía", email: "sofia@gmail.com"},
-//     {nombre: "Diego", email: "diego@gmail.com"},
-//     {nombre: "Laura", email: "laura@gmail.com"},
-//     {nombre: "Sebastián", email: "sebastian@gmail.com"},
-//     {nombre: "Paula", email: "paula@gmail.com"},
-//     {nombre: "Daniel", email: "daniel@gmail.com"},
-//     {nombre: "Sara", email: "sara@gmail.com"},
-//     {nombre: "Mateo", email: "mateo@gmail.com"},
-//     {nombre: "Isabella", email: "isabella@gmail.com"},
-//     {nombre: "Felipe", email: "felipe@gmail.com"},
-//     {nombre: "Lucía", email: "lucia@gmail.com"},
-//     {nombre: "Tomás", email: "tomas@gmail.com"},
-//     {nombre: "Martina", email: "martina@gmail.com"},
-//     {nombre: "David", email: "david@gmail.com"},
-//     {nombre: "Antonia", email: "antonia@gmail.com"},
-//     {nombre: "Emilio", email: "emilio@gmail.com"},
-//     {nombre: "Renata", email: "renata@gmail.com"},
-//     {nombre: "Samuel", email: "samuel@gmail.com"},
-//     {nombre: "Fernanda", email: "fernanda@gmail.com"},
-//     {nombre: "Gabriel", email: "gabriel@gmail.com"},
-//     {nombre: "Elena", email: "elena@gmail.com"},
-//     {nombre: "Ricardo", email: "ricardo@gmail.com"},
-//     {nombre: "Mónica", email: "monica@gmail.com"},
-//     {nombre: "Héctor", email: "hector@gmail.com"},
-//     {nombre: "Patricia", email: "patricia@gmail.com"},
-//     {nombre: "Roberto", email: "roberto@gmail.com"},
-//     {nombre: "Angela", email: "angela@gmail.com"},
-//     {nombre: "Mario", email: "mario@gmail.com"},
-//     {nombre: "Natalia", email: "natalia@gmail.com"},
-//     {nombre: "Oscar", email: "oscar@gmail.com"},
-//     {nombre: "Carmen", email: "carmen@gmail.com"},
-//     {nombre: "Eduardo", email: "eduardo@gmail.com"},
-//     {nombre: "Verónica", email: "veronica@gmail.com"},
-//     {nombre: "Francisco", email: "francisco@gmail.com"},
-//     {nombre: "Beatriz", email: "beatriz@gmail.com"},
-//     {nombre: "Santiago", email: "santiago@gmail.com"},
-//     {nombre: "Claudia", email: "claudia@gmail.com"},
-//     {nombre: "Alberto", email: "alberto@gmail.com"},
-//     {nombre: "Esteban", email: "esteban@gmail.com"}
-// ];
+      // Botón Editar
+      const btnEditar = document.createElement("button");
+      btnEditar.textContent = "Editar";
+      btnEditar.classList.add("btn", "btn-editar");
+      btnEditar.onclick = () => cargarEdicion(item);
 
+      // Botón Eliminar
+      const btnEliminar = document.createElement("button");
+      btnEliminar.textContent = "Eliminar";
+      btnEliminar.classList.add("btn", "btn-eliminar");
+      btnEliminar.onclick = () => eliminarMensaje(item.id);
 
-//     const personaEncontrada = personas.find(
-//         (persona) => 
-//             persona.nombre.toLowerCase() === nombre.toLowerCase() &&
-//             persona.email.toLowerCase() === correo.toLowerCase()
-//     );
+      tdAcciones.appendChild(btnEditar);
+      tdAcciones.appendChild(btnEliminar);
 
-//     if (personaEncontrada) {
-//         mostrarAlerta(`Bienvenido ${personaEncontrada.nombre}`, "exito");
+      tbody.appendChild(tr);
+    });
 
+    tabla.appendChild(tbody);
+    datos.appendChild(tabla);
+  }
+
+  // CARGAR DATOS
+  async function cargarEdicion(item) {
+    try {
+      const resp = await fetch(`${API_BASE}/messages/${item.id}`);
+      
+      if (!resp.ok) {
+        throw new Error(`Error HTTP: ${resp.status}`);
+      }
+      
+      const json = await resp.json();
+      
+      if (json.status !== 200) {
+        throw new Error(json.message || "Error al obtener el mensaje");
+      }
+      
+      const mensaje = json.data;
+      
+      // datos de la API
+      nombreInput.value = mensaje.person_name;
+      correoInput.value = mensaje.person_email;
+      comentarioInput.value = mensaje.message;
+      selecTipo.value = mensaje.type;
+
+      // edición
+      currentMessageId = mensaje.id;
+      currentPersonId = mensaje.person_id;
+      formulario.querySelector("button[type='submit']").textContent = "Actualizar";
+      editando = true;
+      
+      formulario.scrollIntoView({ behavior: 'smooth' });
+      
+    } catch (error) {
+      console.error("Error", error);
+      mostrarAlerta("Error al cargar el mensaje", "error");
+    }
+  }
+
+  async function eliminarMensaje(id) {
+    if (!confirm("¿Eliminar este mensaje?")) return;
+    try {
+      const resp = await fetch(`${API_BASE}/messages/${id}`, { method: "DELETE" });
+      const json = await resp.json();
+      if (json.status !== 200) throw new Error(json.message || "Error");
+      mostrarAlerta("Mensaje eliminado", "exito");
+      await cargarListado();
+    } catch (e) {
+      console.error(e);
+      mostrarAlerta("No se pudo eliminar", "error");
+    }
+  }
+
+  // Submit del formulario
+  formulario.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    // Limpia errores
+    document.getElementById("error-nombre").textContent = "";
+    document.getElementById("error-correo").textContent = "";
+    document.getElementById("error-mensaje").textContent = "";
+
+    // Lee valores
+    const nombre = nombreInput.value.trim();
+    const correo = correoInput.value.trim();
+    const mensaje = comentarioInput.value.trim();
+    const tipo = selecTipo.value;
+
+    // Validaciones
+    let valido = true;
     
-//         if (editando) {
-//             editarCliente();
-//             editando = false;
-//         } else {
-//             objClientes.id = Date.now();
-//             objClientes.opcion = selectTipo.value;
-//             objClientes.nombre = nombreInput.value;
-//             objClientes.correo = correoInput.value;
-//             objClientes.comentario = comentarioInput.value;
-
-//             agregarCliente(); 
-//         }
-
-//         this.reset();
-
-//     } else {
-//         mostrarAlerta("Nombre o correo no registrado", "error");
-//         return; 
-//     }
-
-//     }
-// });
-
-// //Agregar cliente
-// function agregarCliente(){
-//     listaClientes.push({...objClientes});
-
-//     mostrarCliente();
-
-//     formulario.reset();
-
-//     limpiarObjeto();
-// }
-
-// //Limpia los cajas donde se escribe
-// function limpiarObjeto(){
-//     objClientes.id = "";
-//     objClientes.opcion = "";
-//     objClientes.nombre = "";
-//     objClientes.correo = "";
-//     objClientes.comentario = "";
-// }
-
-
-// function mostrarCliente() {
-//     limpiarHTML();
-
-//     const datos = document.querySelector(".datos");
-
-//     // Crear la tabla
-//     const tabla = document.createElement("table");
-//     tabla.classList.add("tabla-clientes");
-
-//     // Crear encabezados
-//     const thead = document.createElement("thead");
-//     const encabezado = document.createElement("tr");
-//     encabezado.innerHTML = `
-//         <th>ID</th>
-//         <th>Tipo</th>
-//         <th>Nombre</th>
-//         <th>Correo</th>
-//         <th>Comentario</th>
-//         <th>Acciones</th>
-//     `;
-//     thead.appendChild(encabezado);
-//     tabla.appendChild(thead);
-
-//     // Crear la tabla
-//     const tbody = document.createElement("tbody");
-
-//     //solo correos registrados
-//     const personas = [
-//         {nombre: "Julian", email: "jnalvarado.28@gmail.com"},
-//         {nombre: "Luis", email: "luis@gmail.com"},
-//         {nombre: "Jorge", email: "jorge@gmail.com"},
-//         {nombre: "Andres", email: "andres@gmail.com"},
-//         {nombre: "Camila", email: "camila@gmail.com"},
-//         {nombre: "Valentina", email: "valentina@gmail.com"},
-//         {nombre: "Carlos", email: "carlos@gmail.com"},
-//         {nombre: "Ana", email: "ana@gmail.com"},
-//         {nombre: "María", email: "maria@gmail.com"},
-//         {nombre: "Juan", email: "juan@gmail.com"},
-//         {nombre: "Pedro", email: "pedro@gmail.com"},
-//         {nombre: "Sofía", email: "sofia@gmail.com"},
-//         {nombre: "Diego", email: "diego@gmail.com"},
-//         {nombre: "Laura", email: "laura@gmail.com"},
-//         {nombre: "Sebastián", email: "sebastian@gmail.com"},
-//         {nombre: "Paula", email: "paula@gmail.com"},
-//         {nombre: "Daniel", email: "daniel@gmail.com"},
-//         {nombre: "Sara", email: "sara@gmail.com"},
-//         {nombre: "Mateo", email: "mateo@gmail.com"},
-//         {nombre: "Isabella", email: "isabella@gmail.com"},
-//         {nombre: "Felipe", email: "felipe@gmail.com"},
-//         {nombre: "Lucía", email: "lucia@gmail.com"},
-//         {nombre: "Tomás", email: "tomas@gmail.com"},
-//         {nombre: "Martina", email: "martina@gmail.com"},
-//         {nombre: "David", email: "david@gmail.com"},
-//         {nombre: "Antonia", email: "antonia@gmail.com"},
-//         {nombre: "Emilio", email: "emilio@gmail.com"},
-//         {nombre: "Renata", email: "renata@gmail.com"},
-//         {nombre: "Samuel", email: "samuel@gmail.com"},
-//         {nombre: "Fernanda", email: "fernanda@gmail.com"},
-//         {nombre: "Gabriel", email: "gabriel@gmail.com"},
-//         {nombre: "Elena", email: "elena@gmail.com"},
-//         {nombre: "Ricardo", email: "ricardo@gmail.com"},
-//         {nombre: "Mónica", email: "monica@gmail.com"},
-//         {nombre: "Héctor", email: "hector@gmail.com"},
-//         {nombre: "Patricia", email: "patricia@gmail.com"},
-//         {nombre: "Roberto", email: "roberto@gmail.com"},
-//         {nombre: "Angela", email: "angela@gmail.com"},
-//         {nombre: "Mario", email: "mario@gmail.com"},
-//         {nombre: "Natalia", email: "natalia@gmail.com"},
-//         {nombre: "Oscar", email: "oscar@gmail.com"},
-//         {nombre: "Carmen", email: "carmen@gmail.com"},
-//         {nombre: "Eduardo", email: "eduardo@gmail.com"},
-//         {nombre: "Verónica", email: "veronica@gmail.com"},
-//         {nombre: "Francisco", email: "francisco@gmail.com"},
-//         {nombre: "Beatriz", email: "beatriz@gmail.com"},
-//         {nombre: "Santiago", email: "santiago@gmail.com"},
-//         {nombre: "Claudia", email: "claudia@gmail.com"},
-//         {nombre: "Alberto", email: "alberto@gmail.com"},
-//         {nombre: "Esteban", email: "esteban@gmail.com"}
-//     ];
-
-//     const listaFiltrada = listaClientes.filter(cliente =>
-//         personas.some(persona => persona.email.toLowerCase() === cliente.correo.toLowerCase())
-//     );
-
-//     listaFiltrada.forEach(cliente => {
-//         const { id, opcion, nombre, correo, comentario } = cliente;
-
-//         const fila = document.createElement("tr");
-
-//         fila.innerHTML = `
-//             <td data-label="ID">${id}</td>
-//             <td data-label="Tipo">${opcion}</td>
-//             <td data-label="Nombre">${nombre}</td>
-//             <td data-label="Correo">${correo}</td>
-//             <td data-label="Comentario">${comentario}</td>
-//         `;
-
-//         // Celda de acciones
-//         const celdaAcciones = document.createElement("td");
-
-//         // Botón Editar
-//         const editarBoton = document.createElement('button');
-//         editarBoton.textContent = 'Editar';
-//         editarBoton.classList.add('btn', 'btn-editar');
-//         editarBoton.onclick = () => cargarCliente(cliente);
-
-//         // Botón Eliminar
-//         const eliminarBoton = document.createElement('button');
-//         eliminarBoton.textContent = 'Eliminar';
-//         eliminarBoton.classList.add('btn', 'btn-eliminar');
-//         eliminarBoton.onclick = () => eliminarCliente(id);
-
-//         celdaAcciones.appendChild(editarBoton);
-//         celdaAcciones.appendChild(eliminarBoton);
-
-//         fila.appendChild(celdaAcciones);
-//         tbody.appendChild(fila);
-//     });
-
-//     tabla.appendChild(tbody);
-//     datos.appendChild(tabla);
-// }
-
-
-// function cargarCliente(cliente){
-
-//     const {id, opcion, nombre, correo, comentario} = cliente;
-
-//     nombreInput.value = nombre;
-//     correoInput.value = correo;
-//     comentarioInput.value = comentario;
-//     selecTipo.value = opcion;
-
-//     objClientes.id = id;
-
-//     formulario.querySelector("button[type='submit']").textContent = 'Actualizar';
-
-//     editando = true;
-// }
-
-
-// function editarCliente() {
+    if (nombre.length < 2) {
+      document.getElementById("error-nombre").textContent = "El nombre debe tener al menos 2 caracteres.";
+      valido = false;
+    }
     
-//     objClientes.nombre = nombreInput.value.trim();
-//     objClientes.correo = correoInput.value.trim();
-//     objClientes.comentario = comentarioInput.value.trim();
-//     objClientes.opcion = selecTipo.value;
-
-//     // Buscar cliente por id y actualizarlo
-//     const clienteEncontrado = listaClientes.find(c => c.id === objClientes.id);
-//     if (clienteEncontrado) {
-//         clienteEncontrado.nombre = objClientes.nombre;
-//         clienteEncontrado.correo = objClientes.correo;
-//         clienteEncontrado.comentario = objClientes.comentario;
-//         clienteEncontrado.opcion = objClientes.opcion;
-//     }
-
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(correo)) {
+      document.getElementById("error-correo").textContent = "Ingrese un correo electrónico válido.";
+      valido = false;
+    }
     
-//     limpiarHTML();
-//     mostrarCliente();
+    if (!mensaje) {
+      document.getElementById("error-mensaje").textContent = "El mensaje no puede estar vacío.";
+      valido = false;
+    }
+    
+    if (!tipo) {
+      mostrarAlerta("Debe seleccionar un tipo de mensaje", "error");
+      valido = false;
+    }
+    
+    if (!valido) return;
 
-//     // Reset del formulario y estados
-//     formulario.reset();
-//     formulario.querySelector("button[type='submit']").textContent = 'Agregar';
-//     editando = false;
-// }
+    try {
+        // persona existe por email   
+        const resPerson = await fetch(`${API_BASE}/persons/search?email=${encodeURIComponent(correo)}`);
+        
+        if (!resPerson.ok) {
+            if (resPerson.status === 404) {
+                mostrarAlerta("Persona no encontrada.", "error");
+                return;
+            } else if (resPerson.status === 500) {
+                mostrarAlerta("Error del servidor", "error");
+                return;
+            } else {
+                mostrarAlerta(`Error inesperado: ${resPerson.status}`, "error");
+                return;
+            }
+        }
+        
+        // Parsear respuesta JSON
+        const personJson = await resPerson.json();
 
+        if (personJson.status !== 200) {
+            mostrarAlerta("Persona no encontrada", "error");
+            return;
+        }
+        
+        if (!personJson.data || !personJson.data.id) {
+            mostrarAlerta("Respuesta inválida", "error");
+            return;
+        }
+        
+        const person = personJson.data;
 
-// function eliminarCliente(id){
+        // Validar que el nombre coincida   
+        const nombreNormalizado = nombre.toLowerCase().trim();
+        const nombrePersonaNormalizado = person.name.toLowerCase().trim();
+        
+        if (nombreNormalizado !== nombrePersonaNormalizado) {
+            mostrarAlerta(`El nombre de la persona es incorrecto`, "error");
+            return;
+        }
 
-//     listaClientes = listaClientes.filter(cliente => cliente.id !== id );
+        // Crear o actualizar mensaje  
+        let response;
+        let messagePayload = {
+            type: tipo,
+            person_id: person.id, 
+            message: mensaje
+        };
 
-//     limpiarHTML();
-//     mostrarCliente();
-// }
+        if (editando) {
+            // ACTUALIZAR MENSAJE
+            response = await fetch(`${API_BASE}/messages/${currentMessageId}`, {
+                method: "PUT",
+                headers: { 
+                    "Content-Type": "application/json" 
+                },
+                body: JSON.stringify(messagePayload)
+            });
+            
+        } else {
+            // CREAR NUEVO MENSAJE  
+            response = await fetch(`${API_BASE}/messages`, {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json" 
+                },
+                body: JSON.stringify(messagePayload)
+            });
+        }
 
-// function limpiarHTML() {
-//     const datos = document.querySelector(".datos");
-//     while(datos.firstChild) {
-//         datos.removeChild(datos.firstChild);
-//     }
-// }
+        // Validar respuesta del mensaje  
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
+        }
+        
+        const messageJson = await response.json();
+            
+        if (editando) {
+            
+            if (messageJson.status !== 200) {
+                throw new Error(messageJson.message || "Error al actualizar el mensaje");
+            }
+        } else {
 
-//     //MENU DE OPCIONES
-//     const opciones = [
-//         {value: "Peticiones", text: "Peticiones"},
-//         {value: "Quejas", text: "Quejas"},
-//         {value: "Reclamos", text: "Reclamos"},
-//         {value: "Suguerencias", text: "Suguerencias"},
-//     ];
+            if (messageJson.status !== 201 && messageJson.status !== 200) {
+                throw new Error(messageJson.message || "Error al crear el mensaje");
+            }
+        }
+        
+        // Mostrar éxito y limpiar formulario 
+        if (editando) {
+            mostrarAlerta(`Mensaje actualizado exitosamente`, "exito");
+        } else {
+            mostrarAlerta(`Mensaje creado exitosamente`, "exito");
+        }
+        
+        // Resetear formulario
+        formulario.reset();
+        formulario.querySelector("button[type='submit']").textContent = "Enviar";
+        
+        // Resetear variables de estado
+        editando = false;
+        currentMessageId = null;
+        currentPersonId = null;
 
-//     //Insercion menu de opciones
-//     const selectTipo = document.getElementById("tipo")
+        // Recargar listado para mostrar cambios
+        await cargarListado();
+        
+    } catch (err) {
+        console.error("Error detallado:", err);
+        mostrarAlerta(`Error: ${err.message}`, "error");
+    }
+  });
 
-//     opciones.forEach(opcion => {
-//         const option = document.createElement("option");
-//         option.value = opcion.value;
-//         option.textContent = opcion.text;
-//         selectTipo.appendChild(option);
-//     });
-
-
-//     //Alerta
-//     function mostrarAlerta(mensaje, tipo) {
-//     const alerta = document.getElementById("alerta");
-//     alerta.textContent = mensaje;
-
-//     alerta.className = "alerta"; // Reset
-//     alerta.classList.add("mostrar");
-
-//     if (tipo === "exito") {
-//         alerta.classList.add("exito");
-//     } else {
-//         alerta.classList.add("error");
-//     }
-
-//     setTimeout(() => {
-//         alerta.classList.remove("mostrar");
-//     }, 3000);
-// }
-
-
-// });
-
+  
+  cargarListado();
+});

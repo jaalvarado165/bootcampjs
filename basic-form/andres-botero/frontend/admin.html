@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Reclamos</title>
+    <title>Admin - Sistema de Reclamos</title>
     <link rel="stylesheet" href="base.css">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -13,7 +13,7 @@
 <header>
     <nav class="barra-navegacion">
         <div class="top-bar">
-            <div class="logo">SISTEMA DE RECLAMOS</div>
+            <div class="logo">SISTEMA DE RECLAMOS - ADMIN</div>
         
             <div class="top-bar-right">
                 <div class="phone">
@@ -31,14 +31,13 @@
         <input type="checkbox" id="toggle-menu" style="display: none;">
         
         <ul class="navegacion-links">
-            <li><a href="index.html">Inicio</a></li>
+            <li><a href="#">Panel Admin</a></li>
             <li><a href="#">Informacion</a></li>
             <li><a href="#">Demostracion</a></li>
             <li><a href="#">Guia</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Contacto</a></li>
-            <li><a href="registro.html" class="sesion-link"><i class="fa-solid fa-user-plus"></i> Registro</a></li>
-            <li><a href="login.html" class="sesion-link"><i class="fa-solid fa-sign-in-alt"></i> Login</a></li>
+            <li><a href="#" id="logout-btn" class="sesion-link"><i class="fa-solid fa-sign-out-alt"></i> Cerrar Sesión</a></li>
         </ul>
     </nav>
 </header>
@@ -94,11 +93,21 @@
     </section>
 </section>
 
+<section id="lista">
+    <div class="listado">
+        <h2>Listado de datos</h2>
+        <div class="datos"></div>
+    </div>
+</section>
+
 <footer>
     <p>&copy; 2025 Reclamos. Todos los derechos reservados.</p>
 </footer>
 
-<script src="index.js"></script>
+<script src="admin.js"></script>
 
 </body>
+</html>
+
+
 </html>

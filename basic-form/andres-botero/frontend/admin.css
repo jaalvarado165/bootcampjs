@@ -1,0 +1,338 @@
+.contenedor-todo {
+    background-image: url("../imagenes/formulario.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.horizontal {
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#hero {
+    width: 50%;
+    padding-right: 0px;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 200px;
+}
+
+#hero h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+#hero p {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #2b2828;
+}
+
+.form-content {
+    width: 100%;
+    max-width: 450px;
+    background-color: #ffffff;
+    padding: 10px 30px 30px;
+    text-align: center;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-content h1 {
+    font-size: 30px;
+    margin-bottom: 60px;
+    color: #000000;
+    position: relative;
+}
+
+.form-content h1::after {
+    content: "";
+    width: 30px;
+    height: 4px;
+    border-radius: 3px;
+    background: #1f93ff;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.input-field {
+    background-color: #ebebeb;
+    margin: 10px 0;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    transition: max-height 05s;
+    overflow: hidden;
+}
+
+input {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    outline: none;
+    padding: 18px 15px;
+    color: #030303;
+}
+
+.input-field i {
+    margin-left: 15px;
+    color: #1f93ff;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #868686;
+}
+
+textarea {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    outline: none;
+    padding: 50px 15px;
+    color: #000000;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    height: 120px;
+}
+
+.btn-field {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.btn-field button {
+    flex-basis: 38%;
+    font-size: 20px;
+    background-color: #1f93ff;
+    color: #ffffff;
+    height: 40px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 1s;
+}
+
+.btn-field button:hover {
+    background-color: #0f6ecf;
+    transform: scale(1.05);
+    filter: brightness(110%);
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    display: block;
+    text-align: left;
+    width: calc(100% - 10px);
+    padding-left: 5px;
+}
+
+.input-field label {
+    margin-left: 15px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.input-field select {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    border: 1px solid transparent;
+    background-color: #e9e9e9;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-top: 0px;
+}
+
+#lista {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    background-color: #48e;
+}
+
+.listado {
+    width: 65%;
+    height: calc(100% - 50px);
+    margin: 10px 5px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.listado h2 {
+    margin-top: 10px;
+    font-weight: 300;
+    font-size: 2em;
+    color: #000000;
+    font-weight: bold;
+}
+
+.listado .datos {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    padding: 0 30px;
+    overflow-x: auto;
+}
+
+.listado .datos p {
+    margin: 5px 5px;
+    font-size: 1em;
+    color: #000000;
+}
+
+hr {
+    width: 100px;
+    height: 1px;
+}
+
+.tabla-clientes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-clientes th {
+    background-color: #006eff;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.tabla-clientes td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla-clientes tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.btn-editar {
+    background-color: #006eff;
+    border-radius: 5px;
+    padding: 2px;
+    margin: 5px;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-eliminar {
+    background-color: #ff0000;
+    border-radius: 5px;
+    padding: 2px;
+    margin: 5px;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .horizontal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+    }
+
+    #hero {
+        width: 100%;
+        padding-right: 0;
+        margin: 30px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .form-content {
+        width: 100%;
+        max-width: 100%;
+        margin: 15px;
+    }
+
+    .listado {
+        width: 90%;
+        height: calc(100% - 50px);
+        box-sizing: border-box;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 10px;
+    }
+
+    .listado h2 {
+        margin-top: 10px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .listado .datos {
+        height: auto;
+        max-height: 150px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 5px;
+    }
+
+    .tabla-clientes {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .btn-editar,
+    .btn-eliminar {
+        padding: 4px 4px;
+        font-size: 12px;
+        margin: 2px;
+    }
+
+    .tabla-clientes th,
+    .tabla-clientes td {
+        padding: 6px;
+        font-size: 12px;
+    }
+}
+

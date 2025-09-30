@@ -213,6 +213,7 @@ header{
     list-style: none;
     display: flex;
     gap: 25px;
+    align-items: center;
 }
 
 .navegacion-links li a{
@@ -227,9 +228,41 @@ header{
     color: #408ce2;
 }
 
+/* Estilos para los botones de sesión dentro del menú */
+.navegacion-links li a.sesion-link {
+    background: #1f93ff;
+    color: #ffffff ;
+    padding: 5px 8px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 15px;
+    transition: all 0.3s ease;
+}
+
+.navegacion-links li a.sesion-link:hover {
+    background: #408ce2;
+    color: white ;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px #1f93ff80;
+}
+
+.navegacion-links li a.sesion-link i {
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+/* Separador visual para los botones */
+.navegacion-links li:has(a.sesion-link) {
+    border-left: 2px solid rgba(255, 255, 255, 0.3);
+    padding-left: 20px;
+    margin-left: 15px;
+}
+
 .phone {
     font-weight: bold;
     font-size: 16px;
+    margin-right: 30px;
 }
 
 .phone i{
@@ -283,7 +316,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 0 5%;
+    position: relative;
 }
 
 #lista{
@@ -389,81 +422,6 @@ hr{
 }
 
 
-/* @media (max-width: 768px) {
-
-    .horizontal{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #hero {
-        width: 100%;
-        padding-right: 0;
-        margin-bottom: 40px;
-        align-items: center;
-        text-align: center;
-    }
-
-    .form-content {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .barra-navegacion {
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
-        gap: 10px;
-    }
-
-    .navegacion-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        text-align:left;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease;
-    }
-
-    .navegacion-links.active {
-        display: flex;
-    }
-
-    .phone {
-        margin-top: 10px;
-    }
-
-    .menu-toggle{
-        display: block;
-        order: -1;
-        align-self: flex-start;
-    }
-
-    #toggle-menu:checked ~ .navegacion-links {
-        display: flex;
-        max-height: 200px;
-    }
-
-    .top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    }
-
-    .listado h2{
-    margin-top: 10px;
-    font-weight: 300;
-    font-size: 1.2em;
-    color: #000000;
-    font-weight: bold;
-}
-
-} */
-
 @media (max-width: 768px) {
 
     /* Ajuste general de la sección horizontal */
@@ -473,6 +431,13 @@ hr{
         align-items: center;
         justify-content: center;
         padding: 15px;
+    }
+
+    .logo {
+        font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-left: 13px;
     }
 
     /* Ajustes del hero */
@@ -496,7 +461,8 @@ hr{
         flex-direction: column;
         align-items: flex-start;
         text-align: left;
-        gap: 8px;
+        gap: 10px;
+        padding: 0 20px;
     }
 
     .navegacion-links {
@@ -514,19 +480,20 @@ hr{
     }
 
     .phone {
-        margin-top: 10px;
-
+        margin-right: 15px;
+        font-size: 14px;
     }
 
     .menu-toggle {
         display: block;
         order: -1;
         align-self: flex-start;
+        margin-bottom: 5px;
     }
 
     #toggle-menu:checked ~ .navegacion-links {
         display: flex;
-        max-height: 200px;
+        max-height: 500px;
     }
 
     .top-bar {
@@ -534,6 +501,7 @@ hr{
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        margin-bottom: 10px;
     }
 
     .listado{
@@ -587,3 +555,23 @@ hr{
         font-size: 12px;
     }
 }
+
+    .navegacion-links li a.sesion-link {
+        display: block;
+        margin: 1px 0;
+        text-align: center;
+        padding: 12px 15px;
+        border-radius: 10px;
+        margin-left: 0;
+        background: #1f93ff;
+        color: #ffffff;
+    }
+    
+    .navegacion-links li:has(a.sesion-link) {
+        border-left: none;
+        border-top: 2px solid #ffffff4d;
+        padding-left: 0;
+        padding-top: 15px;
+    }
+
+    
