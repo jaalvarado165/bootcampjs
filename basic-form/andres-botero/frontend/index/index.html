@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reclamos</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<header>
+    <nav class="barra-navegacion">
+        <div class="top-bar">
+            <div class="logo">SISTEMA DE RECLAMOS</div>
+        
+            <div class="top-bar-right">
+                <div class="phone">
+                    <i class="fa fa-phone"></i> 0123456789
+                </div>
+            </div>
+            
+            <div class="menu-toggle">
+                <label for="toggle-menu">
+                    <i class="fa fa-bars"></i>
+                </label>
+            </div>
+        </div>
+
+        <input type="checkbox" id="toggle-menu" style="display: none;">
+        
+        <ul class="navegacion-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="#">Informacion</a></li>
+            <li><a href="#">Demostracion</a></li>
+            <li><a href="#">Guia</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="../registro/registro.html" class="sesion-link"><i class="fa-solid fa-user-plus"></i> Registro</a></li>
+            <li><a href="../login/login.html" class="sesion-link"><i class="fa-solid fa-sign-in-alt"></i> Login</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="contenedor-todo">
+    <section class="horizontal">
+        <section id="hero">
+            <h1>¿Tienes algun bug?</h1>
+            <p>Deja tu comentario y lo solucionaremos</p>
+        </section>
+        
+        <div class="form-content">
+            <div id="alerta" class="alerta ocultar"></div>
+            <h1 id="title">Formulario</h1>
+            <form id="formulario" novalidate>
+                
+                <div class="input-group">
+                    <div class="input-field">        
+                        <i class="fa-solid fa-list"></i>
+                        <select id="tipo" name="tipo" required>
+                            <option value="" disabled selected>Seleccione una opción</option>         
+                        </select>              
+                    </div>
+
+                    <div class="input-field">        
+                        <i class="fa-solid fa-user"></i>
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required maxlength="50">                       
+                    </div>
+                    <span class="error" id="error-nombre"></span>
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <label for="correo">Correo:</label>
+                        <input type="email" id="correo" name="correo" required>
+                    </div>
+                    <span class="error" id="error-correo"></span>
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-comment"></i>
+                        <label for="comentario">Comentario:</label>
+                        <textarea id="comentario" name="comentario" required maxlength="200"></textarea>
+                    </div>
+                    <span class="error" id="error-mensaje"></span>
+                </div>                
+
+                <div class="btn-field">
+                    <button type="submit" id="btnAgregar">Enviar</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+</section>
+
+<footer>
+    <p>&copy; 2025 Reclamos. Todos los derechos reservados.</p>
+</footer>
+
+<script src="index.js"></script>
+
+</body>
+</html>

@@ -16,7 +16,7 @@ connection.connect(err => {
         console.error("Error de conexion:", err);
         return;
     }
-    console.log("Conectado a la base de datos: ");
+    console.log("Conectado a la base de datos");
 });
 
 module.exports = connection;

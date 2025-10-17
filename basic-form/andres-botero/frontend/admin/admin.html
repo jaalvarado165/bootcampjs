@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Sistema de Reclamos</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<header>
+    <nav class="barra-navegacion">
+        <div class="top-bar">
+            <div class="logo">SISTEMA DE RECLAMOS - ADMIN</div>
+        
+            <div class="top-bar-right">
+                <div class="phone">
+                    <i class="fa fa-phone"></i> 0123456789
+                </div>
+            </div>
+            
+            <div class="menu-toggle">
+                <label for="toggle-menu">
+                    <i class="fa fa-bars"></i>
+                </label>
+            </div>
+        </div>
+
+        <input type="checkbox" id="toggle-menu" style="display: none;">
+        
+        <ul class="navegacion-links">
+            <li><a href="#">Panel Admin</a></li>
+            <li><a href="#">Informacion</a></li>
+            <li><a href="#">Reportes</a></li>
+            <li><a href="#">Configuración</a></li>
+            <li><a href="#" id="logout-btn" class="sesion-link"><i class="fa-solid fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div id="alerta" class="alerta ocultar"></div>
+
+<section class="admin-container">
+    <!-- Panel Izquierdo: Listado -->
+    <section id="panel-listado" class="panel-listado">
+        <div class="listado-header">
+            <h2>Listado de Mensajes</h2>
+            <button id="btnMostrarFormulario" class="btn-agregar">
+                <i class="fa-solid fa-plus"></i> Agregar
+            </button>
+        </div>
+        <div class="datos"></div>
+    </section>
+
+    <!-- Panel Derecho: Formulario (oculto por defecto) -->
+    <section id="panel-formulario" class="panel-formulario oculto">
+        <div class="form-content-admin">
+            <div class="form-header">
+                <h1 id="form-title">Nuevo Mensaje</h1>
+                <button id="btnCerrarFormulario" class="btn-cerrar">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <form id="formulario" novalidate>
+                <div class="input-group">
+                    <div class="input-field">        
+                        <i class="fa-solid fa-list"></i>
+                        <select id="tipo" name="tipo" required>
+                            <option value="" disabled selected>Seleccione una opción</option>         
+                        </select>              
+                    </div>
+
+                    <div class="input-field">        
+                        <i class="fa-solid fa-user"></i>
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required maxlength="50">                       
+                    </div>
+                    <span class="error" id="error-nombre"></span>
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <label for="correo">Correo:</label>
+                        <input type="email" id="correo" name="correo" required>
+                    </div>
+                    <span class="error" id="error-correo"></span>
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-comment"></i>
+                        <label for="comentario">Comentario:</label>
+                        <textarea id="comentario" name="comentario" required maxlength="200"></textarea>
+                    </div>
+                    <span class="error" id="error-mensaje"></span>
+                </div>                
+
+                <div class="btn-field">
+                    <button type="submit" id="btnEnviar">Enviar</button>
+                    <button type="button" id="btnCancelar" class="btn-cancelar">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</section>
+
+<footer>
+    <p>&copy; 2025 Reclamos. Todos los derechos reservados.</p>
+</footer>
+
+<script src="../admin/admin.js"></script>
+
+</body>
+</html>

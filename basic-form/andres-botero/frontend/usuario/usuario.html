@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Usuario - Sistema de Reclamos</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<header>
+    <nav class="barra-navegacion">
+        <div class="top-bar">
+            <div class="logo">SISTEMA DE RECLAMOS</div>
+        
+            <div class="top-bar-right">
+                <div class="phone">
+                    <i class="fa fa-phone"></i> 0123456789
+                </div>
+            </div>
+            
+            <div class="menu-toggle">
+                <label for="toggle-menu">
+                    <i class="fa fa-bars"></i>
+                </label>
+            </div>
+        </div>
+
+        <input type="checkbox" id="toggle-menu" style="display: none;">
+        
+        <ul class="navegacion-links">
+            <li><a href="../index/index.html">Inicio</a></li>
+            <li><a href="#">Informacion</a></li>
+            <li><a href="#">Demostracion</a></li>
+            <li><a href="#">Guia</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="#" id="logout-btn" class="sesion-link"><i class="fa-solid fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="contenedor-todo">
+    <section class="horizontal">
+        <section id="hero">
+            <h1>Panel de Usuario</h1>
+            <p>Bienvenido a tu cuenta</p>
+        </section>
+        
+        <div class="form-content" style="max-width: 600px;">
+            <div id="alerta" class="alerta ocultar"></div>
+            <h1 id="title">Información del Usuario</h1>
+            
+            <div class="user-info" style="text-align: left; padding: 20px 0;">
+                <div class="info-item" style="margin-bottom: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 8px;">
+                    <strong style="color: #1f93ff;"><i class="fa-solid fa-user"></i> Nombre:</strong>
+                    <p id="userName" style="margin: 5px 0 0 0; font-size: 16px;"></p>
+                </div>
+                
+                <div class="info-item" style="margin-bottom: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 8px;">
+                    <strong style="color: #1f93ff;"><i class="fa-solid fa-envelope"></i> Correo:</strong>
+                    <p id="userEmail" style="margin: 5px 0 0 0; font-size: 16px;"></p>
+                </div>
+                
+                <div class="info-item" style="margin-bottom: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 8px;">
+                    <strong style="color: #1f93ff;"><i class="fa-solid fa-shield-alt"></i> Rol:</strong>
+                    <p id="userRole" style="margin: 5px 0 0 0; font-size: 16px;"></p>
+                </div>
+                
+                <div class="info-item" style="margin-bottom: 20px; padding: 15px; border-radius: 8px;" id="statusContainer">
+                    <strong style="color: #1f93ff;"><i class="fa-solid fa-check-circle"></i> Estado:</strong>
+                    <p id="userStatus" style="margin: 5px 0 0 0; font-size: 16px;"></p>
+                </div>
+            </div>
+            
+            <div class="btn-field" style="margin-top: 30px;">
+                <button type="button" id="btnVolver" onclick="window.location.href='../index/index.html'">
+                    <i class="fa-solid fa-home"></i> Ir al Inicio
+                </button>
+            </div>
+        </div>
+    </section>
+</section>
+
+<footer>
+    <p>&copy; 2025 Reclamos. Todos los derechos reservados.</p>
+</footer>
+
+<script src="usuario.js"></script>
+
+</body>
+</html>
